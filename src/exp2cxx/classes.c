@@ -771,7 +771,6 @@ void ATTRprint_access_methods_entity( const char * entnm, const char * attrnm, c
  ** Procedure:  ATTRprint_access_method
  ** Parameters:  const Variable a --  attribute to find the type for
  ** FILE* file  --  file being written to
- ** Returns:  name to be used for the type of the c++ access functions
  ** Description:  prints the access method based on the attribute type
  **       i.e. get and put value access functions defined in a class
  **       generated for an entity.
@@ -789,8 +788,7 @@ void ATTRprint_access_methods( CONST char * entnm, Variable a, FILE * file ) {
     char funcnm [BUFSIZ];  /*  name of member function  */
 
     char nm [BUFSIZ];
-    /* I believe nm has the name of the underlying type without Sdai in
-       front of it */
+    /* I believe nm has the name of the underlying type without Sdai in front of it */
     if( TYPEget_name( t ) ) {
         strncpy( nm, FirstToUpper( TYPEget_name( t ) ), BUFSIZ - 1 );
     }
@@ -1638,7 +1636,7 @@ void LIBstructor_print( Entity entity, Linked_List neededAttr, FILE * file, Sche
         t = VARget_type( a );
 
         if ( VARget_inverse( a ) ) {
-            entnm = ENTITYget_classname( entity ); //entnm points to a static buffer which may have been overwritten
+            entnm = ENTITYget_classname( entity ); /* entnm points to a static buffer which may have been overwritten */
             fprintf( file, "    iAttrs.push( %s::a_%dI%s, %s::set_%s_, %s::get_%s_ );\n",
                      SCHEMAget_name( schema ), count, attrnm, entnm, attrnm, entnm, attrnm );
         } else if( ! VARis_derived( a ) )  {
@@ -1813,7 +1811,7 @@ void LIBstructor_print_w_args( Entity entity, Linked_List neededAttr, FILE * fil
             generate_attribute_name( a, attrnm );
             t = VARget_type( a );
             if ( VARget_inverse( a ) ) {
-                entnm = ENTITYget_classname( entity ); //entnm points to a static buffer which may have been overwritten
+                entnm = ENTITYget_classname( entity ); /* entnm points to a static buffer which may have been overwritten */
                 fprintf( file, "    iAttrs.push( %s::a_%dI%s, %s::set_%s_, %s::get_%s_ );\n",
                          SCHEMAget_name( schema ), count, attrnm, entnm, attrnm, entnm, attrnm );
             } else if( ! VARis_derived( a ) ) {
